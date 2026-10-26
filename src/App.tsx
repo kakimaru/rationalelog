@@ -1,11 +1,20 @@
 import { useCallback, useState } from 'react';
-import { Layout } from './components/Layout';
+import { Layout, type LayoutWidth } from './components/Layout';
 import { loadAppData } from './lib/actions';
-import { useHashRoute } from './lib/useHashRoute';
+import { useHashRoute, type Route } from './lib/useHashRoute';
+import { AboutPage } from './pages/AboutPage';
 import { CaseStudyPage } from './pages/CaseStudyPage';
 import { HomePage } from './pages/HomePage';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { ProjectPage } from './pages/ProjectPage';
+
+const layoutWidths: Record<Route['name'], LayoutWidth> = {
+  home: 'wide',
+  caseStudy: 'wide',
+  project: 'narrow',
+  notFound: 'narrow',
+  about: 'full',
+};
 
 function App() {
   const route = useHashRoute();
@@ -20,12 +29,13 @@ function App() {
   }
 
   return (
-    <Layout>
+    <Layout width={layoutWidths[route.name]} current={route.name === 'about' ? 'about' : undefined}>
       {route.name === 'home' && <HomePage data={data} onChange={refresh} />}
       {route.name === 'project' && <ProjectPage projectId={route.projectId} data={data} onChange={refresh} />}
       {route.name === 'caseStudy' && (
         <CaseStudyPage caseStudyId={route.caseStudyId} data={data} onChange={refresh} />
       )}
+      {route.name === 'about' && <AboutPage />}
       {route.name === 'notFound' && <NotFoundPage />}
     </Layout>
   );

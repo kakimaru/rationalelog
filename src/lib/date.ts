@@ -31,3 +31,32 @@ export function byNewest(a: { date: string; createdAt: string }, b: { date: stri
   if (a.createdAt !== b.createdAt) return a.createdAt < b.createdAt ? 1 : -1;
   return 0;
 }
+
+/**
+ * 月表示カレンダーのマス目（日曜はじまり）。週ごとの配列で、前後の月の空白は null にする
+ * @param month 0 はじまり（Date#getMonth と同じ）
+ */
+export function monthGrid(year: number, month: number): (string | null)[][] {
+  const firstWeekday = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const cells: (string | null)[] = [
+    ...Array.from({ length: firstWeekday }, () => null),
+    ...Array.from({ length: daysInMonth }, (_, i) => toDateString(new Date(year, month, i + 1))),
+  ];
+  while (cells.length % 7 !== 0) cells.push(null);
+
+  const weeks: (string | null)[][] = [];
+  for (let i = 0; i < cells.length; i += 7) weeks.push(cells.slice(i, i + 7));
+  return weeks;
+}
+
+/** 'YYYY-MM-DD' ごとにまとめる。各日の中は新しい順に並べる */
+export function groupByDate<T extends { date: string; createdAt: string }>(items: T[]): Map<string, T[]> {
+  const groups = new Map<string, T[]>();
+  for (const item of [...items].sort(byNewest)) {
+    const group = groups.get(item.date);
+    if (group) group.push(item);
+    else groups.set(item.date, [item]);
+  }
+  return groups;
+}

@@ -47,6 +47,7 @@
 
   /* ---------- Typography ---------- */
   /* 既定のサイズを無効化する。行間は text-* に紐づけず、leading-* で指定する */
+  /* ここは SP（768px 未満）の値。Web の値は @theme の下の上書きブロックで差し替える */
   --text-*: initial;
   --text-xs: 0.56rem;
   --text-sm: 0.7rem;
@@ -61,8 +62,8 @@
   --leading-normal: 1.58;
   --leading-relaxed: 1.73;
 
-  --font-heading: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', system-ui, sans-serif;
-  --font-sans: 'Zen Kaku Gothic New', 'Hiragino Kaku Gothic ProN', system-ui, sans-serif;
+  --font-heading: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   /* ---------- Radius ---------- */
@@ -86,6 +87,21 @@
   --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 0.08), 0 2px 4px -2px oklch(0% 0 0 / 0.08);
   --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 0.1), 0 4px 6px -4px oklch(0% 0 0 / 0.1);
   --shadow-xl: 0 20px 25px -5px oklch(0% 0 0 / 0.12), 0 8px 10px -6px oklch(0% 0 0 / 0.12);
+}
+
+/* Web（768px 以上）の型スケール。基準 16px・比率 1.25、最小 12px（DESIGN.md の Type scale (Web)）
+   @theme 外での定義を認める例外。コンポーネントは同じ text-* クラスのままで切り替わる */
+@media (width >= 48rem) {
+  :root {
+    --text-xs: 0.75rem;
+    --text-sm: 0.8rem;
+    --text-base: 1rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.5625rem;
+    --text-2xl: 1.9531rem;
+    --text-3xl: 2.4414rem;
+    --text-4xl: 3.0518rem;
+  }
 }
 
 @layer base {

@@ -82,6 +82,16 @@ export type CaseStudy = {
   updatedAt: string;
 };
 
+// ---------- スライド（ケーススタディのプレビュー） ----------
+export type SlideLine = {
+  text: string;
+  level: 0 | 1; // 0 は箇条書き、1 はその下の補足（深掘りの回答など）
+};
+
+export type Slide =
+  | { kind: 'cover'; heading: string; meta: string[] }
+  | { kind: 'section'; heading: string; lines: SlideLine[]; truncated: boolean };
+
 // ---------- AI（モック） ----------
 export type ProjectSuggestion = {
   projectId: string | null; // null は「候補なし（新規作成をすすめる）」
