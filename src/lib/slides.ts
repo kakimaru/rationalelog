@@ -9,7 +9,7 @@ import {
   type Slide,
   type SlideLine,
 } from '../types';
-import { formatDate } from './date';
+import { byNewest, formatDate } from './date';
 
 /** 1枚に載せる行数の上限 */
 const MAX_LINES = 6;
@@ -67,4 +67,21 @@ export function buildSlides({ title, sections, project, logs }: Input): Slide[] 
   });
 
   return [cover, ...sectionSlides];
+}
+
+/** カードのサムネイルに出す、直近のログの冒頭の文字数 */
+const PREVIEW_LOG_CHARS = 40;
+
+/** ホームのプロジェクトカードに出すサムネイル用に、表紙と直近のログの2枚を作る（見出しだけを表示する） */
+export function buildProjectPreviewSlides(project: Project, logs: Log[]): Slide[] {
+  const [latest] = [...logs].sort(byNewest);
+  return [
+    { kind: 'cover', heading: project.name, meta: [] },
+    {
+      kind: 'section',
+      heading: latest ? clip(latest.body.replace(/\s+/g, ' ').trim(), PREVIEW_LOG_CHARS) : 'まだログがありません',
+      lines: [],
+      truncated: false,
+    },
+  ];
 }

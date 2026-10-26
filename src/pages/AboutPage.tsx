@@ -37,16 +37,16 @@ const POINTS: { label: string; title: string; body: string; visual: ReactNode }[
   },
   {
     label: 'Point 03',
-    title: 'ケーススタディとスライドに、まとめて書き出す',
+    title: 'スライドにまとめて書き出す',
     body: '溜まったログを選ぶだけで、背景・課題・プロセス・判断理由・成果・学びの下書きに。そのまま発表用のスライドとしても確認できます。',
     visual: <SlideVisual />,
   },
 ];
 
 const STEPS = [
-  { title: '記録する', body: '余裕のある日に、判断・FB・成果・学びを一言。' },
-  { title: '深掘りする', body: '週に一度くらい、AI の問いかけに答えて理由を残す。' },
-  { title: 'まとめる', body: '必要なときに、ログからケーススタディとスライドを作る。' },
+  { title: '記録する', body: '判断・FB・成果・学びを一言記録。' },
+  { title: '深掘りする', body: 'AIの問いかけに答えて理由を残す。' },
+  { title: 'まとめる', body: 'ログからケーススタディとスライドを作る。' },
 ];
 
 type Plan = {
@@ -115,7 +115,7 @@ function SectionHeading({ eyebrow, title, lead }: { eyebrow: string; title: stri
     <div className="mx-auto max-w-3xl space-y-4 text-center">
       <p className="text-sm font-bold tracking-widest text-primary-700">{eyebrow}</p>
       <h2 className="text-3xl">{title}</h2>
-      {lead && <p className="text-lg leading-relaxed text-text-muted">{lead}</p>}
+      {lead && <p className="text-md leading-relaxed text-text-muted">{lead}</p>}
     </div>
   );
 }
@@ -127,13 +127,13 @@ export function AboutPage() {
       <section aria-labelledby="hero-title" className="bg-surface-raised py-32">
         <div className={`${container} grid items-center gap-16 lg:grid-cols-2`}>
           <div className="space-y-8">
-            <p className="text-sm font-bold tracking-widest text-primary-700">UI/UX デザイナーのための判断ログ</p>
+            <p className="text-lg font-bold tracking-widest text-primary-700">UI/UXデザイナーのお仕事ログ</p>
             <h1 id="hero-title" className="text-4xl">
-              書き溜めた断片が、
+              書き溜めたメモが、
               <br />
-              そのまま語れる実績になる
+              そのまま語れる実績に
             </h1>
-            <p className="text-lg leading-relaxed text-text-muted">
+            <p className="text-md leading-relaxed text-text-muted">
               Rationale Log は、日々の「なぜそうしたか」を30秒で記録し、AI の問いかけで深掘りして、ケーススタディと発表用のスライドに育てるログアプリです。
             </p>
             <a href={paths.home()} className={primaryLink}>
@@ -152,13 +152,13 @@ export function AboutPage() {
             <h2 id="problems-title" className="text-3xl">
               「なぜそうしたか」は、
               <br className="sm:hidden" />
-              すぐに消えていく
+              すぐに忘れがち
             </h2>
           </div>
           <ul className="grid gap-8 md:grid-cols-3">
             {PROBLEMS.map((problem) => (
               <li key={problem.title} className="space-y-3 rounded-card bg-surface-raised p-8 shadow-md">
-                <h3 className="text-xl">{problem.title}</h3>
+                <h3 className="text-lg">{problem.title}</h3>
                 <p className="leading-relaxed text-text-muted">{problem.body}</p>
               </li>
             ))}
@@ -171,15 +171,15 @@ export function AboutPage() {
         <div className={`${container} space-y-24`}>
           <SectionHeading
             eyebrow="FEATURES"
-            title="記録から、語れる実績まで一気通貫"
+            title="語れる実績まで一気通貫"
             lead="書く負担は小さく、後から使える形で。日々の記録をケーススタディにつなげる3つの機能です。"
           />
           {POINTS.map((point, i) => (
             <article key={point.label} className="grid items-center gap-12 lg:grid-cols-2">
               <div className={`space-y-4 ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
-                <p className="font-mono text-sm font-bold text-primary-600">{point.label}</p>
-                <h3 className="text-2xl">{point.title}</h3>
-                <p className="text-lg leading-relaxed text-text-muted">{point.body}</p>
+                <p className="font-mono text-lg font-black text-primary-600">{point.label}</p>
+                <h3 className="text-xl">{point.title}</h3>
+                <p className="text-md leading-relaxed text-text-muted">{point.body}</p>
               </div>
               <div className="rounded-card bg-bg p-8">{point.visual}</div>
             </article>
@@ -290,10 +290,10 @@ export function AboutPage() {
       {/* 7. 最終CTA */}
       <section aria-labelledby="final-cta-title" className="bg-primary-800 py-32 text-white">
         <div className="mx-auto max-w-3xl space-y-8 px-6 text-center">
-          <h2 id="final-cta-title" className="text-3xl">
+          <h2 id="final-cta-title" className="text-2xl">
             今日の判断を、一言だけ残してみませんか
           </h2>
-          <p className="text-lg leading-relaxed text-primary-100">
+          <p className="text-md leading-relaxed text-primary-100">
             登録は不要です。デモ版はこのブラウザだけで、すぐに試せます。
           </p>
           <a href={paths.home()} className={primaryLink}>

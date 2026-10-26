@@ -15,7 +15,19 @@ const NOTICE_MESSAGES: Record<Exclude<Notice, null>, string> = {
   copy: 'デモ版のためコピーできません',
 };
 
-function SlideBody({ slide, index }: { slide: Slide; index: number }) {
+type SlideSize = 'default' | 'thumb';
+
+export function SlideBody({ slide, index, size = 'default' }: { slide: Slide; index: number; size?: SlideSize }) {
+  // サムネイルは縮小表示なので、8px の見出しだけを出す
+  if (size === 'thumb') {
+    const isCover = slide.kind === 'cover';
+    return (
+      <div className={`flex h-full items-center p-2 ${isCover ? 'bg-primary-800 text-white' : 'bg-surface-raised'}`}>
+        <h3 className="line-clamp-2 text-thumb">{slide.heading}</h3>
+      </div>
+    );
+  }
+
   if (slide.kind === 'cover') {
     return (
       <div className="flex h-full flex-col justify-between bg-primary-800 p-8 text-white">

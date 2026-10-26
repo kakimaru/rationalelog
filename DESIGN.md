@@ -42,6 +42,12 @@
 
 Line heights, font families and weights are shared between SP and Web.
 
+### Special-purpose type token
+```css
+--font-size-thumb: 0.5rem; /* 8px — slide thumbnails only. Fixed on SP and Web (not part of the Web override) */
+```
+- Use only for miniature previews of slides (e.g. project cards on Home). Never for readable UI text; the Web 12px minimum applies to everything else.
+
 ### Line heights
 ```css
 --line-height-tight: 1.275;
@@ -273,6 +279,7 @@ When using this DESIGN.md:
 | DESIGN.md のトークン | `@theme` に書く変数 | 使うクラス |
 |---|---|---|
 | `--font-size-{xs…4xl}` | `--text-{xs…4xl}`（値を上書き。`@theme` には SP の値、Web の値は下記の上書きブロック） | `text-xs` 〜 `text-4xl` |
+| `--font-size-thumb` | `--text-thumb`（SP / Web 共通。上書きブロックに入れない） | `text-thumb` |
 | `--line-height-{tight,normal,relaxed}` | `--leading-{tight,normal,relaxed}` | `leading-tight` / `leading-normal` / `leading-relaxed` |
 | `--font-family-heading` / `-body` / `-mono` | `--font-heading` / `--font-sans`（body） / `--font-mono` | `font-heading` / `font-sans` / `font-mono` |
 | `--font-weight-body` / `-body-strong` / `-heading` | 定義しない（Tailwind 既定値と一致） | `font-normal`(400) / `font-medium`(500) / `font-bold`(700) |
@@ -390,3 +397,8 @@ When using this DESIGN.md:
 - Context: 更新後の `documents/fontsize-refine.md` で書体が Inter（`'Inter', system-ui, -apple-system, sans-serif`）に変わった。
 - Decision: heading / body ともに Inter にする。SP / Web で同じ書体を使う（画面幅で書体が切り替わると不自然なため）。Inter には日本語グリフがないため、日本語は OS 標準のゴシック体で表示する（Zen Kaku Gothic New の読み込みはやめる）。OS によって日本語の見た目が変わることは許容する。
 - Implementation: `index.html` で Google Fonts の Inter（400 / 500 / 700）を読み込む。`--font-heading` / `--font-sans` の値を上記に変更。
+
+### 2026-10-26 — スライドのサムネイル用に `--text-thumb`（8px）を追加
+- Context: ホームのプロジェクトカードにスライドを縮小表示する（`documents/tiny-modify.md`）。最小の `text-xs`（SP 8.96px / Web 12px）ではカード内の小さな枠に収まらず、縮小版に見えない。
+- Decision: サムネイル専用のトークン `--font-size-thumb: 0.5rem`（8px）を追加する。読ませる文字ではなく縮小表示なので、Web の最小 12px の例外とし、SP / Web で同じ値にする。既存の型スケールは変更しない。
+- Implementation: `@theme` に `--text-thumb: 0.5rem` を追加（クラス `text-thumb`）。使用箇所は `SlidePreview.tsx` の `SlideBody`（`size="thumb"`）のみ。

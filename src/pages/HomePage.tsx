@@ -4,10 +4,12 @@ import { LogCalendar } from '../components/LogCalendar';
 import { LogComposer } from '../components/LogComposer';
 import { LogList } from '../components/LogList';
 import { ProjectFormModal } from '../components/ProjectFormModal';
+import { SlideBody } from '../components/SlidePreview';
 import { cardClass, focusRing } from '../components/styles';
 import { ViewToggle } from '../components/ViewToggle';
 import { addSampleData, createProject } from '../lib/actions';
 import { byNewest } from '../lib/date';
+import { buildProjectPreviewSlides } from '../lib/slides';
 import { paths } from '../lib/useHashRoute';
 import type { AppData } from '../types';
 
@@ -17,8 +19,6 @@ type Props = {
 };
 
 const RECENT_LOG_LIMIT = 10;
-/** ケーススタディにできる目安のログ件数 */
-const CASE_STUDY_READY_COUNT = 3;
 
 export function HomePage({ data, onChange }: Props) {
   const [creatingProject, setCreatingProject] = useState(false);
@@ -29,7 +29,7 @@ export function HomePage({ data, onChange }: Props) {
   const isEmpty = data.logs.length === 0 && data.projects.length === 0;
 
   return (
-    <div className="grid gap-16 lg:grid-cols-3 lg:gap-8">
+    <div className="grid gap-16 lg:grid-cols-3 lg:gap-12">
       <div className="space-y-16 lg:col-span-2">
         <LogComposer data={data} onChange={onChange} />
 
@@ -77,13 +77,13 @@ export function HomePage({ data, onChange }: Props) {
         )}
       </div>
 
-      <section aria-labelledby="projects-title" className="space-y-4">
+      <section aria-labelledby="projects-title" className="space-y-4 self-start rounded-card bg-neutral-100 p-6">
         <div className="flex items-center justify-between gap-4">
           <h2 id="projects-title" className="text-xl">
             プロジェクト
           </h2>
           <Button size="sm" onClick={() => setCreatingProject(true)}>
-            ＋ プロジェクトを追加
+            ＋ 追加する
           </Button>
         </div>
         {projects.length === 0 ? (
@@ -104,11 +104,13 @@ export function HomePage({ data, onChange }: Props) {
                       <span>ログ {logs.length} 件</span>
                       <span>深掘り済み {deepDived} 件</span>
                     </p>
-                    {logs.length >= CASE_STUDY_READY_COUNT && (
-                      <p className="inline-block rounded-badge bg-primary-100 px-2 text-sm font-medium text-primary-800">
-                        ケーススタディにできます
-                      </p>
-                    )}
+                    <div aria-hidden="true" className="grid grid-cols-2 gap-2">
+                      {buildProjectPreviewSlides(project, logs).map((slide, i) => (
+                        <div key={i} className="aspect-video overflow-hidden rounded-card border border-border">
+                          <SlideBody slide={slide} index={i} size="thumb" />
+                        </div>
+                      ))}
+                    </div>
                   </a>
                 </li>
               );

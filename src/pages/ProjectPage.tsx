@@ -75,7 +75,7 @@ function ProjectDetail({ project, data, onChange }: { project: Project } & Omit<
         {project.keywords.length > 0 && (
           <ul className="flex flex-wrap gap-2" aria-label="キーワード">
             {project.keywords.map((keyword) => (
-              <li key={keyword} className="rounded-badge border border-border px-2 text-sm text-text-muted">
+              <li key={keyword} className="rounded-badge border border-border px-2 py-1 text-sm text-text-muted">
                 {keyword}
               </li>
             ))}

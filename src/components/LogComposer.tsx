@@ -58,7 +58,7 @@ export function LogComposer({ data, onChange }: Props) {
           </label>
           <textarea
             id="composer-body"
-            className={`${inputClass} resize-y text-lg`}
+            className={`${inputClass} resize-y text-md`}
             rows={3}
             maxLength={LOG_BODY_MAX_LENGTH}
             value={body}

@@ -57,6 +57,8 @@
   --text-2xl: 1.709rem;
   --text-3xl: 2.1362rem;
   --text-4xl: 2.6703rem;
+  /* スライドのサムネイル専用。縮小表示なので SP / Web とも 8px 固定（Web の上書きブロックには入れない） */
+  --text-thumb: 0.5rem;
 
   --leading-tight: 1.275;
   --leading-normal: 1.58;
