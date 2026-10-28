@@ -3,7 +3,7 @@ import type { Project } from '../types';
 import { Button } from './Button';
 import { Modal } from './Modal';
 import { ProjectNameField, PROJECT_NAME_MAX_LENGTH } from './ProjectNameField';
-import { inputClass, labelClass } from './styles';
+import { labelClass, softFieldClass } from './styles';
 
 export type ProjectFormValues = Pick<Project, 'name' | 'description' | 'keywords'>;
 
@@ -65,7 +65,7 @@ export function ProjectFormModal({ project, onClose, onSubmit }: Props) {
           </label>
           <textarea
             id="project-description"
-            className={`${inputClass} resize-y`}
+            className={`${softFieldClass} resize-y`}
             rows={3}
             value={description}
             onChange={(event) => setDescription(event.target.value)}
@@ -80,7 +80,7 @@ export function ProjectFormModal({ project, onClose, onSubmit }: Props) {
           </label>
           <input
             id="project-keywords"
-            className={inputClass}
+            className={softFieldClass}
             value={keywords}
             onChange={(event) => setKeywords(event.target.value)}
             placeholder="例：オンボーディング, LP"

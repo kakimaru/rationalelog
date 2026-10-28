@@ -7,6 +7,7 @@ export type Route =
   | { name: 'project'; projectId: string }
   | { name: 'caseStudy'; caseStudyId: string }
   | { name: 'about' }
+  | { name: 'insights' }
   | { name: 'interview' }
   | { name: 'notFound' };
 
@@ -22,6 +23,7 @@ export function parseHash(hash: string): Route {
 
   if (segments.length === 0) return { name: 'home' };
   if (segments.length === 1 && segments[0] === 'about') return { name: 'about' };
+  if (segments.length === 1 && segments[0] === 'insights') return { name: 'insights' };
   if (segments.length === 1 && segments[0] === 'interview') return { name: 'interview' };
   if (segments.length === 2 && segments[0] === 'projects') return { name: 'project', projectId: segments[1] };
   if (segments.length === 2 && segments[0] === 'case-studies') return { name: 'caseStudy', caseStudyId: segments[1] };
@@ -33,6 +35,7 @@ export const paths = {
   project: (projectId: string) => `#/projects/${encodeURIComponent(projectId)}`,
   caseStudy: (caseStudyId: string) => `#/case-studies/${encodeURIComponent(caseStudyId)}`,
   about: () => '#/about',
+  insights: () => '#/insights',
   /** 面接で見せる用。画面上の導線は置かない */
   interview: () => '#/interview',
 };

@@ -100,6 +100,57 @@ export type ProjectSuggestion = {
 
 export type GeneratedCaseStudy = Pick<CaseStudy, 'title' | 'sections'>;
 
+// ---------- AI（モック）：自己分析。保存せず、毎回ログから計算する ----------
+/** 思考の癖。value は -100（left 寄り）〜 100（right 寄り） */
+export type TraitAxis = {
+  id: string;
+  left: string;
+  right: string;
+  value: number;
+  comment: string;
+};
+
+/** スキルのスコア（0〜100）。previous は 1 か月前の時点の値（その時点のログがなければ null） */
+export type SkillScore = {
+  id: string;
+  label: string;
+  current: number;
+  previous: number | null;
+};
+
+export type MonthStats = {
+  logCount: number;
+  deepDiveRate: number; // 深掘りに答えたログの割合（0〜100）
+  typeCounts: Record<LogType | 'uncategorized', number>;
+};
+
+export type MonthlyComparison = {
+  thisMonth: MonthStats;
+  lastMonth: MonthStats | null; // 先月のログが 1 件もなければ null
+  headline: string;
+  notes: string[];
+};
+
+export type SelfAnalysis = {
+  enough: boolean; // ログが少なすぎて分析できないときは false
+  comparison: MonthlyComparison;
+  traits: TraitAxis[];
+  skills: SkillScore[];
+};
+
+export type ProjectStrength = {
+  title: string;
+  evidence: string[]; // 根拠になったログの本文
+};
+
+export type ProjectAnalysis = {
+  enough: boolean;
+  strengths: ProjectStrength[];
+  traits: TraitAxis[];
+  skills: SkillScore[];
+  advice: string[]; // 「この経験を作れると強い」
+};
+
 // ---------- 画面で使うデータのまとまり ----------
 export type AppData = {
   projects: Project[];

@@ -81,6 +81,9 @@ const SAMPLE_PROJECTS: SampleProject[] = [
     description: '複数のプロダクトでばらばらだった UI を揃えるため、デザイントークンとコンポーネントを整備した。',
     keywords: ['デザインシステム', 'トークン', 'コンポーネント'],
     logs: [
+      // 先月（30〜60 日前）の分。自己分析の「先月の自分との比較」に使う
+      { body: '各プロダクトの色・フォント・ボタンの使われ方を棚卸しした', type: null, daysAgo: 41 },
+      { body: 'トークンの命名ルールをエンジニアに相談し、レビューしてもらった', type: 'feedback', daysAgo: 33 },
       {
         body: '色のトークンは色名ではなく用途（bg / text / border）で名前を付けることにした',
         type: 'decision',
@@ -96,6 +99,14 @@ const SAMPLE_PROJECTS: SampleProject[] = [
       '家計簿アプリで、初回登録から 7 日以内に離脱するユーザーが多いという課題に取り組んだ。担当は UI/UX デザイン（PM・エンジニア 2 名と協働）。',
     keywords: ['オンボーディング', 'チュートリアル', '初回'],
     logs: [
+      // 先月（30〜60 日前）の分
+      {
+        body: '既存ユーザー 5 人にインタビュー。「初回の説明が長くて面倒」という声が多かった',
+        type: 'feedback',
+        daysAgo: 48,
+      },
+      { body: '離脱の多い画面をデータで確認した。3 画面目で 30% が離脱していた', type: 'learning', daysAgo: 44 },
+      { body: 'チュートリアルの構成案を 3 パターン作り、PM・エンジニアとレビューした', type: 'decision', daysAgo: 38 },
       {
         body: 'チュートリアルを 5 画面から 2 画面に減らし、残りは使っている途中のヒント表示に回すことにした',
         type: 'decision',

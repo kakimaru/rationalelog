@@ -5,7 +5,7 @@ import type { Log } from '../types';
 import { Button } from './Button';
 import { DemoNotice } from './DemoNotice';
 import { Modal } from './Modal';
-import { inputClass, labelClass } from './styles';
+import { labelClass, softFieldClass } from './styles';
 
 type Props = {
   log: Log;
@@ -74,7 +74,7 @@ export function DeepDiveModal({ log, onClose, onSaved }: Props) {
             </label>
             <textarea
               id={`deep-dive-${i}`}
-              className={`${inputClass} resize-y`}
+              className={`${softFieldClass} resize-y`}
               rows={2}
               value={answers[i] ?? ''}
               autoFocus={i === 0}

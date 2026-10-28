@@ -1,5 +1,5 @@
 import { useId } from 'react';
-import { inputClass, labelClass } from './styles';
+import { labelClass, softFieldClass } from './styles';
 
 export const PROJECT_NAME_MAX_LENGTH = 50;
 
@@ -18,7 +18,7 @@ export function ProjectNameField({ value, onChange, autoFocus = false }: Props) 
       </label>
       <input
         id={id}
-        className={inputClass}
+        className={softFieldClass}
         value={value}
         maxLength={PROJECT_NAME_MAX_LENGTH}
         onChange={(event) => onChange(event.target.value)}

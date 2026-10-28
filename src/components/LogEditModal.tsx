@@ -4,7 +4,7 @@ import { LOG_BODY_MAX_LENGTH, type DeepDiveAnswer, type Log, type LogType, type 
 import { Button } from './Button';
 import { LogTypeChips } from './LogTypeChips';
 import { Modal } from './Modal';
-import { inputClass, labelClass } from './styles';
+import { labelClass, softFieldClass } from './styles';
 
 type Props = {
   log: Log;
@@ -56,7 +56,7 @@ export function LogEditModal({ log, projects, onClose, onSaved }: Props) {
         </label>
         <textarea
           id="log-edit-body"
-          className={`${inputClass} resize-y`}
+          className={`${softFieldClass} resize-y`}
           rows={3}
           maxLength={LOG_BODY_MAX_LENGTH}
           value={body}
@@ -77,7 +77,7 @@ export function LogEditModal({ log, projects, onClose, onSaved }: Props) {
           <input
             id="log-edit-date"
             type="date"
-            className={inputClass}
+            className={softFieldClass}
             value={date}
             onChange={(event) => setDate(event.target.value)}
           />
@@ -88,7 +88,7 @@ export function LogEditModal({ log, projects, onClose, onSaved }: Props) {
           </label>
           <select
             id="log-edit-project"
-            className={inputClass}
+            className={softFieldClass}
             value={projectId}
             onChange={(event) => setProjectId(event.target.value)}
           >
@@ -120,7 +120,7 @@ export function LogEditModal({ log, projects, onClose, onSaved }: Props) {
               </div>
               <textarea
                 id={`log-edit-qa-${i}`}
-                className={`${inputClass} resize-y`}
+                className={`${softFieldClass} resize-y`}
                 rows={2}
                 value={qa.answer}
                 onChange={(event) =>

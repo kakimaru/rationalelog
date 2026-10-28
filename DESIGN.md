@@ -402,3 +402,17 @@ When using this DESIGN.md:
 - Context: ホームのプロジェクトカードにスライドを縮小表示する（`documents/tiny-modify.md`）。最小の `text-xs`（SP 8.96px / Web 12px）ではカード内の小さな枠に収まらず、縮小版に見えない。
 - Decision: サムネイル専用のトークン `--font-size-thumb: 0.5rem`（8px）を追加する。読ませる文字ではなく縮小表示なので、Web の最小 12px の例外とし、SP / Web で同じ値にする。既存の型スケールは変更しない。
 - Implementation: `@theme` に `--text-thumb: 0.5rem` を追加（クラス `text-thumb`）。使用箇所は `SlidePreview.tsx` の `SlideBody`（`size="thumb"`）のみ。
+
+### 2026-10-28 — Well-being のトーン：コンポーザーの角丸・モーション・背景の blob
+- Context: 面接課題の FB（入力したくなる情緒的な部分がない）を受け、内省・ポートフォリオらしいゆとりのある雰囲気にする（`documents/add-function.md`）。トーンを変えるのは「背景」と「入力欄・フォーム」だけで、カードなど既存のトークンは変えない。
+- Decision:
+  - `--radius-composer: 1.5rem` → `rounded-composer`。ホームの一体型の入力欄（`composerClass`）と、モーダルのフィールド（`softFieldClass`：枠線なし・`bg-neutral-100`・フォーカスで focus ring）に使う。ケーススタディ編集の入力欄は従来の `inputClass`（`rounded-input`）のまま。
+    - `softFieldClass` の面は `bg-surface`（neutral-50）だと白いモーダル上でほぼ見えないため、一段濃い `bg-neutral-100` にした。
+  - モーション（`@theme` の `--animate-*` と `@keyframes`）：
+    - `--animate-blob-drift-a/b/c`（24s / 30s / 27s、ease-in-out、infinite alternate。translate + scale）→ `animate-blob-drift-a` など。周期をずらして同じ形に戻りにくくする。
+    - `--animate-fade-in-up`（300ms ease-out。opacity と translateY 0.5rem）→ `animate-fade-in-up`。深掘り質問の例が出るとき。
+    - `--animate-caret-blink`（1s steps(1)）→ `animate-caret-blink`。タイプ演出のキャレット。
+    - すべて `motion-reduce:animate-none` を併記し、`prefers-reduced-motion` では止める。
+  - 背景の blob（`src/components/BackgroundBlobs.tsx`）：新しい色は足さず、`bg-primary-100/70`・`bg-primary-200/50`・`bg-primary-300/30` と Tailwind 既定の `blur-3xl` で滲ませる。`fixed -z-10`・`pointer-events-none`・`aria-hidden`。
+  - ヘッダーは `bg-surface-raised/80 backdrop-blur` にして背景が少し透けるようにする。
+- Usage: ホームの入力欄（`LogComposer`）、`DeepDiveModal` / `LogEditModal` / `ProjectFormModal`（`ProjectNameField` を含むため、振り分けモーダルの新規プロジェクト名も）、`Layout`。
